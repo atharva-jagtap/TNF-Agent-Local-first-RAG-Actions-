@@ -1,0 +1,27 @@
+TNF Data Onboarding SOP (v1.0)
+
+Purpose
+- Standardize onboarding of new data sources into TNF.
+
+Prerequisites
+- Source owner assigned
+- Data contract completed
+- Schema JSON approved
+
+Steps
+1) Register source in TNF Console → Sources → “Register Source”.
+2) Provide schema.json and sample file (min 100 rows).
+3) Set Refresh Times in the Data Ingestion settings for this source:
+  - Hourly at :10 and :40 (IST).
+4) Enable Quality Checks: null_ratio < 5%, unique_keys enforced.
+5) Submit for Review → “Create Pull Request” in tnf-ingestion repo.
+
+Failure Modes & Fix
+- Schema mismatch: update schema.json + re-run dry run.
+- Late arrivals: increase late_arrival_window to 25m.
+- Partition gap: backfill via Airflow DAG tnf_backfill_<source>.
+
+Contacts
+- Source Ops: ops-tnf@example.com
+- Data Platform On-call: x1234
+
